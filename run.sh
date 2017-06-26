@@ -1,3 +1,3 @@
 #!/bin/bash
 php initDB.php
-php -S localhost:8000
+php -S 0.0.0.0:2333
