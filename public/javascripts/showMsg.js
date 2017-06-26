@@ -6,7 +6,7 @@ var rowID = 0;
 $('#form').submit(function(event) {
   storeMsg();
   return false;
-});
+})
 
 /* send messages to server for storing */
 function storeMsg() {
@@ -19,6 +19,7 @@ function storeMsg() {
     success: function(response) {
       var arr = ['<li>', sender, ': ', $('#msg').val(), ' ', $.parseJSON(response), '</li>'];
       $('ul').append(arr.join(''));
+      $('#msg').val('');
     }
   });
 }

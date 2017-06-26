@@ -3,7 +3,7 @@
     <h1>Let's Chat</h1>
     <form id="form" method="POST">
       <input id="msg" type="text" name="message"></input>
-      <button id="button" type="button">chat</button>
+      <button id="button" type="submit">chat</button>
     </form>
   </div>
   <p id="sender">Sender: <?php echo $_GET['sender']?></p>
