@@ -1,7 +1,7 @@
 <html>  
   <div class="container">
     <h1>Let's Chat</h1>
-    <form method="POST">
+    <form id="form" method="POST">
       <input id="msg" type="text" name="message"></input>
       <button id="button" type="button">chat</button>
     </form>

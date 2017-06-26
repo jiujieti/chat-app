@@ -3,8 +3,9 @@ var receiver = $('#receiver').html().split(': ')[1];
 var rowID = 0;
 
 /* show the results on the website */
-$('#button').click(function(event) {
+$('#form').submit(function(event) {
   storeMsg();
+  return false;
 });
 
 /* send messages to server for storing */
