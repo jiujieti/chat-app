@@ -1,7 +1,9 @@
 <html>
   <h1>Let's Chat</h1>
   <p id="sender">Sender: <?php echo $_GET['sender']?></p>
+  <p id="senderID">Sender ID: <?php echo $_GET['senderID']?></p>
   <p id="receiver">Receiver: <?php echo $_GET['receiver']?></p>
+  <p id="receiverID">Receiver ID: <?php echo $_GET['receiverID']?></p>
   <p>
     <ul id="history"></ul>
   </p>

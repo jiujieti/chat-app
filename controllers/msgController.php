@@ -40,6 +40,22 @@ class MessageController {
     }
   }
 
+  public function getAllMsg($userID1, $userID2) {
+    try {
+      $query = $this->chatDB->prepare('SELECT * FROM messages WHERE (senderID = :userID1 
+                                                                AND receiverID = :userID2)
+                                                                 OR (senderID = :userID2
+                                                                AND receiverID = :userID1)');
+      $query->bindParam(':userID1', $userID1);
+      $query->bindParam(':userID2', $userID2);
+      $result = $query->execute();
+      return $result;      
+    } catch(Exception $e) {
+      echo $e->getMessages();
+    }
+
+  }
+
   public function getLastRowID() {
     try {
       $result = $this->chatDB->query('SELECT MAX(rowid) FROM messages');

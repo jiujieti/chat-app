@@ -1,5 +1,7 @@
 var sender = $('#sender').html().split(': ')[1];
+var senderID = $('#senderID').html().split(': ')[1];
 var receiver = $('#receiver').html().split(': ')[1];
+var receiverID = $('#receiverID').html().split(': ')[1];
 var rowID = 0;
 
 /* show the results on the website */
@@ -26,15 +28,17 @@ function storeMsg() {
 
 /* poll to retrieve new messages from server side */
 function pollToShowMsg() {
+  var gets = window.location.search;
   $.ajax({
-    url: 'retrieveMsg.php' + window.location.search,
+    url: (rowID == 0) ? 'loadMsg.php' + gets : 'retrieveMsg.php' + gets,
     dataType: 'JSON',
     data: {
       rowID: rowID
     },
     success: function(response) {
       for(var i = 0; i < response.length - 1 ; i++) {
-        var arr = ['<li>', receiver, ': ', response[i]['content'], ' ', response[i]['dtime'], '</li>'];
+        var uname = (senderID === response[i]['senderID']) ? sender : receiver;
+        var arr = ['<li>', uname, ': ', response[i]['content'], ' ', response[i]['dtime'], '</li>'];
         $('ul').append(arr.join(''));
       }
       rowID = response[response.length - 1];
