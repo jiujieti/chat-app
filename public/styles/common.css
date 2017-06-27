@@ -9,10 +9,10 @@
 
 #msg {
   width: 380px;
-  border-radius: 5px;
+  border: solid 1px #aaa
 }
 
 .users {
   width: 150px;
-  border-radius: 5px;
+  border: solid 1px #aaa
 }
