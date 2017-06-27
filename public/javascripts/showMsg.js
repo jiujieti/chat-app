@@ -10,16 +10,23 @@ function addMsgToHistory(sender, content, time) {
   $('#history').append($('<li>').text(sender + ': ' + content + ' ' + time));
 }
 
+function scrollToBottom() {
+  window.scroll(0, document.body.scrollHeight);
+}
+
 /* send messages to server for storing */
 function storeMsg() {
+  var msg = $('#msg').val();
+  $('#msg').val('');
   $.ajax({
     type: 'POST',
     url: 'storeMsg.php' + window.location.search,
     data: {
-      content: $('#msg').val()
+      content: msg
     },
     success: function(response) {
-      addMsgToHistory(sender, $('#msg').val(), $.parseJSON(response));
+      addMsgToHistory(sender, msg, $.parseJSON(response));
+      scrollToBottom();
     }
   });
 }
@@ -39,6 +46,7 @@ function pollToShowMsg() {
         var uname = (senderID === response[i]['senderID']) ? sender : receiver;
         addMsgToHistory(uname, response[i]['content'], response[i]['dtime']);
       }
+      scrollToBottom();
       rowID = response[response.length - 1];
       setTimeout(pollToShowMsg, 1000);
     }
