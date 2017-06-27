@@ -1,9 +1,11 @@
 <html>
-  <h1>Let's Chat</h1>
-  <p>
-    <ul id="history"></ul>
-  </p>
-  <div class="container">
+  <link href="public/styles/common.css" rel="stylesheet">
+
+  <div id="container">
+    <h1>Let's Chat</h1>
+    <p>
+      <ul id="history"></ul>
+    </p>
     <form id="form" method="POST">
       <input id="msg" type="text" name="message"></input>
       <button id="button" type="submit">chat</button>
