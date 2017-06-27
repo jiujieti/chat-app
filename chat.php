@@ -1,9 +1,5 @@
 <html>
   <h1>Let's Chat</h1>
-  <p id="sender">Sender: <?php echo $_GET['sender']?></p>
-  <p id="senderID">Sender ID: <?php echo $_GET['senderID']?></p>
-  <p id="receiver">Receiver: <?php echo $_GET['receiver']?></p>
-  <p id="receiverID">Receiver ID: <?php echo $_GET['receiverID']?></p>
   <p>
     <ul id="history"></ul>
   </p>
@@ -14,5 +10,11 @@
     </form>
   </div>
   <script src="public/javascripts/jquery-3.2.1.min.js"></script>
+  <script>
+    var sender = '<?php echo $_GET['sender']?>';
+    var senderID = '<?php echo $_GET['senderID']?>';
+    var receiver = '<?php echo $_GET['receiver']?>';
+    var receiverID = '<?php echo $_GET['receiverID']?>';
+  </script>
   <script src="public/javascripts/showMsg.js"></script>
 </html>

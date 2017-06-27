@@ -1,7 +1,7 @@
-var sender = $('#sender').html().split(': ')[1];
-var senderID = $('#senderID').html().split(': ')[1];
-var receiver = $('#receiver').html().split(': ')[1];
-var receiverID = $('#receiverID').html().split(': ')[1];
+//var sender = $('#sender').html().split(': ')[1];
+//var senderID = $('#senderID').html().split(': ')[1];
+//var receiver = $('#receiver').html().split(': ')[1];
+//var receiverID = $('#receiverID').html().split(': ')[1];
 var rowID = 0;
 
 /* show the results on the website */
@@ -30,6 +30,7 @@ function storeMsg() {
 function pollToShowMsg() {
   var gets = window.location.search;
   $.ajax({
+    // if the web page is loaded, get all chat history, otherwise polling for responses
     url: (rowID == 0) ? 'loadMsg.php' + gets : 'retrieveMsg.php' + gets,
     dataType: 'JSON',
     data: {
