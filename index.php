@@ -39,7 +39,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['type'] == 'login') {
 }
 ?>
 <html>
-  <div class="container">
+  <link href="public/styles/common.css" rel="stylesheet">
+
+  <div id="container">
     <h1>Let's Chat</h1>
     <form method="POST">
       <input type="text" name="user"></input>
