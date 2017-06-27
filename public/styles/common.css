@@ -6,3 +6,17 @@
   box-shadow: 0 0 10px #999;
   border-radius: 5px;
 }
+
+#msg {
+  width: 380px;
+  border-radius: 5px;
+}
+
+.users {
+  width: 150px;
+  border-radius: 5px;
+}
+
+button {
+  border-radius: 5px;
+}
