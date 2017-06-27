@@ -1,6 +1,6 @@
 <?php
 require 'models/message.php';
-require 'db.php';
+require 'include/db.php';
 
 class MessageController {
   private $chatDB;

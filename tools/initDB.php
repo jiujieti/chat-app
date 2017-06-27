@@ -1,7 +1,7 @@
 <?php
 // create a new database
 try {
-  $db = new SQLite3('chatAppDB.db');
+  $db = new SQLite3('../chatAppDB.db');
 
   // create tables for the new database
   $db->exec('CREATE TABLE IF NOT EXISTS users (userID varchar(255),

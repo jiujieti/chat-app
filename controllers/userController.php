@@ -1,6 +1,6 @@
 <?php
 require 'models/user.php';
-require 'db.php';
+require 'include/db.php';
 
 class UserController {
   private $chatDB;
