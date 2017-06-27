@@ -1,19 +1,22 @@
 <?php
 require 'include/controllers/userController.php';
 
+$message = '';
+
 // user signup
 if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['type'] == 'signup') {
   $user = new UserController($_POST['user']);
   if($user->searchUser()) {
-    echo "User exists! Please login.";
+    $message = 'User exists! Please login.';
   } else if(empty($_POST['user'])) {
-    echo "User cannot be empty.";
+    $message = 'User cannot be empty.';
   } else {
     $user->createUser();
-    echo "You username is created. Now login and find your friend!";
+    $message = 'This user is created. Now login and find your friend!';
   }
 }
 
+// user login
 if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['type'] == 'login') {
   
   $sender = new UserController($_POST['sender']);
@@ -29,12 +32,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['type'] == 'login') {
     if($receiver->searchUser() && $_POST['sender'] != $_POST['receiver']) {
       header('Location: chat.php?'.http_build_query($data));
     } else {
-      echo "Your friend does not exist! Try again.";
+      $message = 'Your friend does not exist! Try again.';
     }
   } else if(!empty($_POST['sender'])) {
-    echo "User does not exist! Singup or try again.";
+    $message = 'User does not exist! Singup or try again.';
   } else {
-    echo "User name cannot be empty!";
+    $message = 'User name cannot be empty!';
   }
 }
 ?>
@@ -52,5 +55,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['type'] == 'login') {
       <input type="hidden" name="type" value="login"></input>
       <button>login</button>
     </form>
+    <p><?php echo $message; ?></p>
   </div>
 </html>
