@@ -10,6 +10,10 @@ function addMsgToHistory(sender, content, time) {
   $('#history').append($('<li>').text(sender + ': ' + content + ' ' + time));
 }
 
+function atBottom() {
+  return ((window.innerHeight + window.scrollY) >= document.body.offsetHeight);
+}
+
 function scrollToBottom() {
   window.scroll(0, document.body.scrollHeight);
 }
@@ -25,8 +29,11 @@ function storeMsg() {
       content: msg
     },
     success: function(response) {
+      var b = atBottom();
       addMsgToHistory(sender, msg, $.parseJSON(response));
-      scrollToBottom();
+      if (b) {
+        scrollToBottom();
+      }
     }
   });
 }
@@ -42,11 +49,14 @@ function pollToShowMsg() {
       rowID: rowID
     },
     success: function(response) {
+      var b = atBottom();
       for(var i = 0; i < response.length - 1; i++) {
         var uname = (senderID === response[i]['senderID']) ? sender : receiver;
         addMsgToHistory(uname, response[i]['content'], response[i]['dtime']);
       }
-      scrollToBottom();
+      if (b && response.length > 1) {
+        scrollToBottom();
+      }
       rowID = response[response.length - 1];
       setTimeout(pollToShowMsg, 1000);
     }
