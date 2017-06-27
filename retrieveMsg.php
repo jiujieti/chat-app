@@ -1,5 +1,5 @@
 <?php
-require 'controllers/msgController.php';
+require 'include/controllers/msgController.php';
 
 $msg = new MessageController();
 $result = $msg->retrieveMsg($_GET['receiverID'], $_GET['senderID'], $_GET['rowID']);

@@ -14,7 +14,7 @@ function addMsgToHistory(sender, content, time) {
 function storeMsg() {
   $.ajax({
     type: 'POST',
-    url: 'include/storeMsg.php' + window.location.search,
+    url: 'storeMsg.php' + window.location.search,
     data: {
       content: $('#msg').val()
     },
@@ -29,7 +29,7 @@ function pollToShowMsg() {
   var gets = window.location.search;
   $.ajax({
     // if the web page is loaded, get all chat history, otherwise polling for responses
-    url: (rowID == 0) ? 'include/loadMsg.php' + gets : 'include/retrieveMsg.php' + gets,
+    url: (rowID == 0) ? 'loadMsg.php' + gets : 'retrieveMsg.php' + gets,
     dataType: 'JSON',
     data: {
       rowID: rowID

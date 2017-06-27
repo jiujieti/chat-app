@@ -1,5 +1,5 @@
 <?php
-require 'models/message.php';
+require 'include/models/message.php';
 require 'include/db.php';
 
 class MessageController {

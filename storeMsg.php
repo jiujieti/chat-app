@@ -1,5 +1,5 @@
 <?php
-require 'controllers/msgController.php';
+require 'include/controllers/msgController.php';
 
 if(!empty($_POST)) {
   $msg = new MessageController();
