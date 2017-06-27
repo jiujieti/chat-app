@@ -9,9 +9,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['type'] == 'signup') {
   } else {
     if(empty($_POST['user'])) {
       echo "User cannot be empty.";
+    } else {
+      $user->createUser();
+      echo "You username is created. Now login and find your friend!";
     }
-    $user->createUser();
-    echo "You username is created. Now login and find your friend!";
   }
 }
 
@@ -50,13 +51,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['type'] == 'login') {
     <h1>Let's Chat</h1>
     <form method="POST">
       <input type="text" name="user"></input>
-      <input id="signup" name="type" type="hidden" value="signup"></input>
+      <input type="hidden" name="type" value="signup"></input>
       <button>signup</button>
     </form>
     <form method="POST">
       <input type="text" name="sender"></input>
       <input type="text" name="receiver"></input>
-      <input id="login" name="type" type="hidden" value="login"></input>
+      <input type="hidden" name="type" value="login"></input>
       <button>login</button>
     </form>
   </div>
