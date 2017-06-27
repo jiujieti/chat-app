@@ -10,6 +10,10 @@ $('#form').submit(function(event) {
   return false;
 })
 
+function addMsgToHistory(sender, content, time) {
+  $('#history').append($('<li>').text(sender + ': ' + content + ' ' + time));
+}
+
 /* send messages to server for storing */
 function storeMsg() {
   $.ajax({
@@ -19,9 +23,7 @@ function storeMsg() {
       content: $('#msg').val()
     },
     success: function(response) {
-      var arr = ['<li>', sender, ': ', $('#msg').val(), ' ', $.parseJSON(response), '</li>'];
-      $('ul').append(arr.join(''));
-      $('#msg').val('');
+      addMsgToHistory(sender, $('#msg').val(), $.parseJSON(response));
     }
   });
 }
@@ -37,10 +39,9 @@ function pollToShowMsg() {
       rowID: rowID
     },
     success: function(response) {
-      for(var i = 0; i < response.length - 1 ; i++) {
+      for(var i = 0; i < response.length - 1; i++) {
         var uname = (senderID === response[i]['senderID']) ? sender : receiver;
-        var arr = ['<li>', uname, ': ', response[i]['content'], ' ', response[i]['dtime'], '</li>'];
-        $('ul').append(arr.join(''));
+        addMsgToHistory(uname, response[i]['content'], response[i]['dtime']);
       }
       rowID = response[response.length - 1];
       setTimeout(pollToShowMsg, 1000);
