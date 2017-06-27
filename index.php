@@ -6,13 +6,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['type'] == 'signup') {
   $user = new UserController($_POST['user']);
   if($user->searchUser()) {
     echo "User exists! Please login.";
+  } else if(empty($_POST['user'])) {
+    echo "User cannot be empty.";
   } else {
-    if(empty($_POST['user'])) {
-      echo "User cannot be empty.";
-    } else {
-      $user->createUser();
-      echo "You username is created. Now login and find your friend!";
-    }
+    $user->createUser();
+    echo "You username is created. Now login and find your friend!";
   }
 }
 
@@ -28,21 +26,15 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['type'] == 'login') {
   );
   
   if($sender->searchUser()) {
-
     if($receiver->searchUser() && $_POST['sender'] != $_POST['receiver']) {
       header('Location: chat.php?'.http_build_query($data));
     } else {
       echo "Your friend does not exist! Try again.";
     }
-
+  } else if(!empty($_POST['sender'])) {
+    echo "User does not exist! Singup or try again.";
   } else {
-
-    if(!empty($_POST['sender'])) {
-      echo "User does not exist! Singup or try again.";
-    } else {
-      echo "User name cannot be empty!";
-    }
-
+    echo "User name cannot be empty!";
   }
 }
 ?>
