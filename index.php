@@ -1,6 +1,18 @@
 <?php
 require 'include/controllers/userController.php';
-if($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+// user signup
+if($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['user'])) {
+  $user = new UserController($_POST['user']);
+  if($user->searchUser()) {
+    echo "User exists! Please login.";
+  } else { 
+    $user->createUser();
+    echo "You username is created. Now login and find your friend!";
+  }
+}
+
+if($_SERVER['REQUEST_METHOD'] == 'POST' && empty($_POST['user'])) {
   
   $sender = new UserController($_POST['sender']);
   $receiver = new UserController($_POST['receiver']);
@@ -22,10 +34,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
   } else {
 
     if(!empty($_POST['sender'])) {
-      $sender->createUser();
-      echo "You username is created. Now login and find your friend!";
+      echo "User does not exist! Singup or try again.";
     } else {
-      echo "User name cannot be empty.";
+      echo "User name cannot be empty!";
     }
 
   }
@@ -35,9 +46,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
   <div class="container">
     <h1>Let's Chat</h1>
     <form method="POST">
+      <input type="text" name="user"></input>
+      <button>signup</button>
+    </form>
+    <form method="POST">
       <input type="text" name="sender"></input>
       <input type="text" name="receiver"></input>
-      <button>signup/login</button>
+      <button>login</button>
     </form>
   </div>
 </html>
