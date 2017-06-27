@@ -6,4 +6,4 @@ This is a simple chat-app implemented in PHP.
 2. SQLite3
 
 ## Run chat-app
-```sh ./run.sh `
+```sh ./run.sh ```
