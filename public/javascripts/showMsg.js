@@ -39,7 +39,7 @@ function pollToShowMsg() {
       rowID: rowID
     },
     success: function(response) {
-      for(var i = 0; i < response.length; i++) {
+      for(var i = 0; i < response.length - 1; i++) {
         var uname = (senderID === response[i]['senderID']) ? sender : receiver;
         addMsgToHistory(uname, response[i]['content'], response[i]['dtime']);
       }
