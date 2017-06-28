@@ -71,3 +71,16 @@ function pollToShowMsg() {
 $(function() {
   pollToShowMsg();
 });
+
+$(window).on('load', function() {
+  if(window.Notification && Notification.permission !== 'granted') {
+    Notification.requestPermission(function(status) {
+      if(Notification.permission !== status) {
+        Notification.permission = status;
+      }
+    });
+  }
+
+  var notice = new Notification('You are logged in');
+  setTimeout(notice.close.bind(notice), 5000); 
+});
