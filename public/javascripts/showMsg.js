@@ -63,6 +63,9 @@ function pollToShowMsg() {
         scrollToBottom();
       }
       rowID = response[response.length - 1];
+      if(window.location.pathname !== 'chat.php') {
+        var notice = new Notification('You have new messages!');
+      }
       setTimeout(pollToShowMsg, 1000);
     }
   });
@@ -80,7 +83,4 @@ $(window).on('load', function() {
       }
     });
   }
-
-  var notice = new Notification('You are logged in');
-  setTimeout(notice.close.bind(notice), 5000); 
 });
