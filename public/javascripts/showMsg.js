@@ -77,10 +77,6 @@ $(function() {
 
 $(window).on('load', function() {
   if(window.Notification && Notification.permission !== 'granted') {
-    Notification.requestPermission(function(status) {
-      if(Notification.permission !== status) {
-        Notification.permission = status;
-      }
-    });
+    Notification.requestPermission();
   }
 });
