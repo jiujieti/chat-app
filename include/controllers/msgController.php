@@ -25,35 +25,21 @@ class MessageController {
     }
   }
 
-  public function retrieveMsg($senderID, $receiverID, $rowID) {
+  public function retrieveMsg($userID1, $userID2, $rowID) {
     try {
-      $query = $this->chatDB->prepare('SELECT * FROM messages WHERE senderID = :senderID 
-                                                                AND receiverID = :receiverID 
+      $query = $this->chatDB->prepare('SELECT * FROM messages WHERE ((senderID = :userID1 
+                                                                AND receiverID = :userID2)
+                                                                 OR (senderID = :userID2
+                                                                AND receiverID = :userID1))
                                                                 AND rowid > :rowID');
-      $query->bindParam(':senderID', $senderID);
-      $query->bindParam(':receiverID', $receiverID);
+      $query->bindParam(':userID1', $userID1);
+      $query->bindParam(':userID2', $userID2);
       $query->bindParam(':rowID', $rowID);
       $result = $query->execute();
       return $result;      
     } catch(Exception $e) {
       echo $e->getMessages();
     }
-  }
-
-  public function getAllMsg($userID1, $userID2) {
-    try {
-      $query = $this->chatDB->prepare('SELECT * FROM messages WHERE (senderID = :userID1 
-                                                                AND receiverID = :userID2)
-                                                                 OR (senderID = :userID2
-                                                                AND receiverID = :userID1)');
-      $query->bindParam(':userID1', $userID1);
-      $query->bindParam(':userID2', $userID2);
-      $result = $query->execute();
-      return $result;      
-    } catch(Exception $e) {
-      echo $e->getMessages();
-    }
-
   }
 
   public function getLastRowID() {

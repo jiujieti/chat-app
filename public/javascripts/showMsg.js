@@ -6,8 +6,13 @@ $('#form').submit(function(event) {
   return false;
 })
 
-function addMsgToHistory(sender, content, time) {
-  $('#history').append($('<li>').text(sender + ': ' + content + ' ' + time));
+function addMsgToHistory(sender, content, time, tbd) {
+  if(tbd) {
+    $('#history').append($('<li class="tbd">').text(sender + ': ' + content + ' ' + time));
+  } 
+  if(!tbd) {
+    $('#history').append($('<li>').text(sender + ': ' + content + ' ' + time))
+  }
 }
 
 function atBottom() {
@@ -30,7 +35,7 @@ function storeMsg() {
     },
     success: function(response) {
       var b = atBottom();
-      addMsgToHistory(sender, msg, $.parseJSON(response));
+      addMsgToHistory(sender, msg, $.parseJSON(response), true);
       if (b) {
         scrollToBottom();
       }
@@ -40,19 +45,19 @@ function storeMsg() {
 
 /* poll to retrieve new messages from server side */
 function pollToShowMsg() {
-  var gets = window.location.search;
   $.ajax({
     // if the web page is loaded, get all chat history, otherwise polling for responses
-    url: (rowID == 0) ? 'loadMsg.php' + gets : 'retrieveMsg.php' + gets,
+    url: 'retrieveMsg.php' + window.location.search,
     dataType: 'JSON',
     data: {
       rowID: rowID
     },
     success: function(response) {
+      $('li.tbd').remove();
       var b = atBottom();
       for(var i = 0; i < response.length - 1; i++) {
         var uname = (senderID === response[i]['senderID']) ? sender : receiver;
-        addMsgToHistory(uname, response[i]['content'], response[i]['dtime']);
+        addMsgToHistory(uname, response[i]['content'], response[i]['dtime'], false);
       }
       if (b && response.length > 1) {
         scrollToBottom();
