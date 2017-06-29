@@ -55,18 +55,28 @@ function pollToShowMsg() {
     success: function(response) {
       $('li.tbd').remove();
       var b = atBottom();
+      var num = 0;
+      var noticeMsg = '';
       for(var i = 0; i < response.length - 1; i++) {
-        var uname = (senderID === response[i]['senderID'])
-                   ? sender
-                   : receiver;
+        var uname = sender;
+        if(response[i]['senderID'] !== senderID) {
+          uname = receiver;
+          noticeMsg = uname + ': ' + response[i]['content'];
+          num++;
+        }
         addMsgToHistory(uname, response[i]['content'], response[i]['dtime'], false);
       }
       if (b && response.length > 1) {
         scrollToBottom();
       }
       rowID = response[response.length - 1];
-      if(document.hidden && response.length > 1) {
-        var notice = new Notification('You have new messages!');
+      if(document.hidden && num > 0) {
+        var notice;
+        if(num == 1) {
+          notice = new Notification(noticeMsg);
+        } else {
+          notice = new Notification('You have new messages!'); 
+        }
         setTimeout(notice.close.bind(notice), 4000);
       }
       setTimeout(pollToShowMsg, 1000);
