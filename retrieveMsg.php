@@ -1,7 +1,8 @@
 <?php
 require 'include/controllers/msgController.php';
 
-$msg = new MessageController();
+$msgController = new MessageController();
+$msg = $msgController->msg;
 $result = $msg->retrieveMsg($_GET['receiverID'], $_GET['senderID'], $_GET['rowID']);
 $response = array();
 while($res = $result->fetchArray()) {

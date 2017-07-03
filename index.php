@@ -5,13 +5,14 @@ $message = '';
 
 // user signup
 if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['type'] == 'signup') {
-  $user = new UserController($_POST['user']);
-  if($user->searchUser()) {
+  $userController = new UserController();
+  $user = $userController->usr;
+  if($user->searchUser($_POST['user'])) {
     $message = 'User exists! Please login.';
   } else if(empty($_POST['user'])) {
     $message = 'User cannot be empty.';
   } else {
-    $user->createUser();
+    $user->createUser($_POST['user']);
     $message = 'This user is created. Now login and find your friend!';
   }
 }
@@ -19,17 +20,17 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['type'] == 'signup') {
 // user login
 if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['type'] == 'login') {
   
-  $sender = new UserController($_POST['sender']);
-  $receiver = new UserController($_POST['receiver']);
+  $userController = new UserController();
+  $user = $userController->usr;
   $data = array(
     'sender' => $_POST['sender'],
-    'senderID' => $sender->getUserID(),
+    'senderID' => $user->getUserID($_POST['sender']),
     'receiver' => $_POST['receiver'],
-    'receiverID' => $receiver->getUserID()
+    'receiverID' => $user->getUserID($_POST['receiver'])
   );
   
-  if($sender->searchUser()) {
-    if($receiver->searchUser() && $_POST['sender'] != $_POST['receiver']) {
+  if($user->searchUser($_POST['sender'])) {
+    if($user->searchUser($_POST['receiver']) && $_POST['sender'] != $_POST['receiver']) {
       header('Location: chat.php?'.http_build_query($data));
     } else {
       $message = 'Your friend does not exist! Try again.';
