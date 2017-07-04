@@ -1,5 +1,5 @@
 <?php
-require 'include/db.php';
+require_once 'include/db.php';
 
 class User {
 

@@ -1,5 +1,5 @@
 <?php
-require 'include/db.php';
+require_once 'include/db.php';
 
 class Message {
   
@@ -9,6 +9,7 @@ class Message {
     $this->chatDB = new SQLiteDB();
   }
 
+  /* store new messages in DB */
   public function storeMsg($senderID, $receiverID, $content, $dtime) {
     $msgID = uniqid('msg_');
     try {
@@ -25,6 +26,7 @@ class Message {
     }
   }
 
+  /* retrieve all messages after last pull */
   public function retrieveMsg($userID1, $userID2, $rowID) {
     try {
       $query = $this->chatDB->prepare('SELECT * FROM messages WHERE ((senderID = :userID1 
@@ -36,12 +38,13 @@ class Message {
       $query->bindParam(':userID2', $userID2);
       $query->bindParam(':rowID', $rowID);
       $result = $query->execute();
-      return $result;      
+      return $result;
     } catch(Exception $e) {
       echo $e->getMessages();
     }
   }
 
+  /* get the max row ID of the message table */
   public function getLastRowID() {
     try {
       $result = $this->chatDB->query('SELECT MAX(rowid) FROM messages');
